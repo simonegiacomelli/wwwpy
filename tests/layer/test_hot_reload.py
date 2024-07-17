@@ -8,6 +8,10 @@ from wwwpy.server import configure
 from wwwpy.webserver import Webserver
 
 
+def test_foo():
+    pass
+
+
 @for_all_webservers()
 def test_hot_reload__modified(page: Page, webserver: Webserver, tmp_path, restore_sys_path):
     remote_init = tmp_path / 'remote' / '__init__.py'
@@ -36,7 +40,8 @@ def test_hot_reload__created(page: Page, webserver: Webserver, tmp_path, restore
     page.goto(webserver.localhost_url())
     expect(page.locator('body')).to_have_text('exists=False')
 
-    (remote / 'component1.py').write_text("from js import document, console; console.log('comp1!'); document.body.innerHTML = 'import ok'")
+    (remote / 'component1.py').write_text(
+        "from js import document, console; console.log('comp1!'); document.body.innerHTML = 'import ok'")
     expect(page.locator('body')).to_have_text('exists=True')
 
 
@@ -82,3 +87,7 @@ from js import document
 file1_txt = Path(__file__).parent / 'file1.txt'
 document.body.innerHTML = 'exists=' + str(file1_txt.exists())
 """
+
+
+def test_zzz():
+    pass
